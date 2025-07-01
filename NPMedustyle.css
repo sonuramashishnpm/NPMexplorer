@@ -1,0 +1,285 @@
+/* Reset default styles for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#firstopt{
+  text-align: center;
+  font-size: 1.5rem;
+  color: #4a148c;
+  margin: 20px 0;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); 
+  padding: 10px;
+  background: #f3e5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  }
+ #opt{
+  border-color: #0288d1;
+  border-radius: 8px;
+  height: 45px;
+  width: 185px;
+  background-color: #358ebe;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor:pointer
+  
+  
+;
+
+  
+ } 
+/* Set a child-friendly, clean background and font */
+body {
+  font-family: 'Comic Sans MS', 'Arial', sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #fff3e0);
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* Header styling for the welcome message */
+header.article {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #d81b60;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the instructions (STEPS class) */
+.STEPS {
+  font-size: 1.2rem;
+  color: #0288d1;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.STEPS ol {
+  list-style-position: inside;
+  padding: 10px;
+  background: #e8f5e9;
+  border-radius: 10px;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.STEPS li {
+  margin: 10px 0;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+/* Grade, Subject, and Chapter dropdown containers */
+#gradediv, #subjectDiv, #chapterDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  padding: 15px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+#gradediv:hover, #subjectDiv:hover, #chapterDiv:hover {
+  transform: scale(1.02);
+}
+
+/* Label styling for dropdowns */
+.optionofgrade, #subjectDiv label, #chapterDiv label {
+  font-size: 1.1rem;
+  color: #ad1457;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+/* Dropdown styling */
+#grade, #subject, #chapter {
+  padding: 10px;
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #0288d1;
+  border-radius: 8px;
+  background: #e3f2fd;
+  color: #333;
+  width: 200px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#grade:focus, #subject:focus, #chapter:focus {
+  outline: none;
+  border-color: #d81b60;
+  box-shadow: 0 0 8px rgba(216, 27, 96, 0.3);
+}
+
+/* YouTube iframe container */
+#iframeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#chapterIframe {
+  max-width: 100%;
+  border-radius: 10px;
+  border: 3px solid #4caf50;
+  margin-top: 20px;
+}
+
+/* Video list styling for iframeListContainer */
+#iframeListContainer {
+  width: 100%;
+  max-width: 560px;
+  margin-bottom: 20px;
+}
+
+#iframeListContainer ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#iframeListContainer li {
+  background: #e3f2fd;
+  border: 2px solid #0288d1;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#iframeListContainer li:hover {
+  background: #b3e5fc;
+  transform: scale(1.02);
+}
+
+#iframeListContainer li.selected {
+  border-color: #d81b60;
+  background: #fce4ec;
+}
+
+#iframeListContainer img {
+  width: 120px;
+  height: 68px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+#iframeListContainer .video-title {
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Fallback message for no videos */
+#iframeListContainer .no-videos {
+  font-size: 1rem;
+  color: #d32f2f;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  header.article {
+    font-size: 2rem;
+  }
+
+  .STEPS {
+    font-size: 1rem;
+  }
+
+  #gradediv, #subjectDiv, #chapterDiv {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .optionofgrade, #subjectDiv label, #chapterDiv label {
+    margin-bottom: 10px;
+  }
+
+  #grade, #subject, #chapter {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  #chapterIframe {
+    width: 100%;
+    height: 200px;
+  }
+
+  #iframeListContainer img {
+    width: 100px;
+    height: 56px;
+  }
+}
+
+@media (max-width: 480px) {
+  header.article {
+    font-size: 1.5rem;
+  }
+
+  .STEPS {
+    font-size: 0.9rem;
+  }
+
+  #chapterIframe {
+    height: 180px;
+  }
+
+  #iframeListContainer img {
+    width: 80px;
+    height: 45px;
+  }
+}
+
+/* Accessibility enhancements */
+#grade[aria-invalid="true"],
+#subject[aria-invalid="true"],
+#chapter[aria-invalid="true"] {
+  border-color: #d32f2f;
+}
+
+#iframeListContainer li:focus {
+  outline: 2px solid #d81b60;
+  outline-offset: 2px;
+}
+
+/* Hover effects for interactivity */
+#grade:hover, #subject:hover, #chapter:hover {
+  background: #b3e5fc;
+}
+.buttonhome{
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: 5px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    align-content: center;
+    border-color: var(--secondary-color);
+    background-color: var(--accent-color);
+}

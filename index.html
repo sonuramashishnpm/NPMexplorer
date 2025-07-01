@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NPMexplorer</title>
+    <link rel="icon" href="NPM.jpg">
+    <link rel="stylesheet" href="NPMstyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="controller">
+    <header id="mainheader" aria-label="Main Header">
+        <div class="header-container">
+            <h1>NPMexplorer</h1>
+            <button class="hamburger" aria-label="Toggle Menu" onclick="toggleMenu()">☰</button>
+        </div>
+        <nav id="topmenue" aria-label="Main Navigation">
+            <button onclick="window.location.href='NPMedu.html'">
+                <img src="NPMedu.jpg" class="resized-image" alt="NPMedu Icon" loading="lazy"> NPMedu
+            </button>
+
+            <button onclick="window.location.href='NPMnews.html'">
+                <img src="NPMnews.jpg" class="resized-image" alt="NPMnews Icon" loading="lazy"> NPMnews
+            </button>
+
+
+
+
+
+
+            <button onclick="window.location.href='NPMstocks.html'">
+                <img src="NPMstocks.jpg" class="resized-image" alt="NPMstocks Icon" loading="lazy"> NPMstocks
+            </button>
+
+
+
+
+
+            <button onclick="window.location.href='NPM.html'">
+                <img src="NPM.jpg" class="resized-image" alt="NPM Icon" loading="lazy"> NPM
+            </button>
+
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2 class="secondheading">WELCOME TO NPMexplorer</h2>
+        <p>Discover education, entertainment, and more with NPMexplorer.</p>
+        <button class="cta" onclick="toggleSection('buttonstoggle')">Explore Now</button>
+    </section>
+    <!-- Login/Signup Box -->
+    <div class="chatbox">
+        <input type="email" id="email" placeholder="Enter your email" />
+        <input type="password" id="password" placeholder="Enter your password" />
+        <button onclick="signup()">Sign Up</button>
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div class="chatbox">
+        <input type="text" id="searchBox" placeholder="Enter a topic..." />
+        <button onclick="searchWikipedia()">Search</button>
+        <div id="result" style="margin-top: 15px;"></div> <!-- ✅ Added this -->
+    </div>
+
+    <div id="belowsearch">
+        <button onclick="toggleSection('buttonstoggle')" class="NPMbriefbuttons" aria-expanded="false">NPMexplorer
+            offers:</button>
+        <p>Click above to know NPMexplorer.</p>
+        <div id="buttonstoggle" style="display: none;">
+            <ol id="sectionList">
+                <li>
+                    <button onclick="toggleSection('edu-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMedu</button>
+                    <div id="edu-content" style="display:none;" class="section-content">
+                        <h3>NPMedu</h3>
+                        <p>Explore educational resources from Class 1 to 12, offering:
+                        <ol>
+                            <li>Lectures</li>
+                            <li>Notes</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('political-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMpoltics</button>
+                    <div id="political-content" style="display:none;" class="section-content">
+                        <h3>NPMpoltics</h3>
+                        <p>Explore the political world, offering:
+                        <ol>
+                            <li>Articles</li>
+                            <li>Research Papers</li>
+                            <li>Political Views</li>
+                            <li>News about politics</li>
+                            <li>Debates (you can participate)</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('news-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMnews</button>
+                    <div id="news-content" style="display:none;" class="section-content">
+                        <h3>NPMnews</h3>
+                        <p>Explore world activities, offering:
+                        <ol>
+                            <li>Views</li>
+                            <li>Live news</li>
+                            <li>Daily newspaper for free</li>
+                            <li>Summarized news by A.I</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('entertainment-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMentertainment</button>
+                    <div id="entertainment-content" style="display:none;" class="section-content">
+                        <h3>NPMentertainment</h3>
+                        <p>Explore shows and cartoons, offering:
+                        <ol>
+                            <li>TMKOC (Tarak Mehta Ka Oolta Chasma)</li>
+                            <li>CARTOONS: e.g., Motu-Patlu, Shiva</li>
+                            <li>Informative movies</li>
+                            <li>Songs</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('sports-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMsports</button>
+                    <div id="sports-content" style="display:none;" class="section-content">
+                        <h3>NPMsports</h3>
+                        <p>Track sports events, offering:
+                        <ol>
+                            <li>Live stream of sports events</li>
+                            <li>Information about sports</li>
+                            <li>Invest in sports events</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('info-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMinfo</button>
+                    <div id="info-content" style="display:none;" class="section-content">
+                        <h3>NPMinfo</h3>
+                        <p>Explore endless information, offering:
+                        <ol>
+                            <li>Research Papers</li>
+                            <li>Daily updates about SCIENCE and SOCIAL SCIENCE</li>
+                            <li>YouTubers like DHRUV RATHEE</li>
+                            <li>Write and post articles</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('vlog-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMvlog</button>
+                    <div id="vlog-content" style="display:none;" class="section-content">
+                        <h3>NPMvlog</h3>
+                        <p>Explore daily vlogs, offering:
+                        <ol>
+                            <li>Vlog videos</li>
+                            <li>Upload your own</li>
+                            <li>Earn money via ads</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('skills-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMskills</button>
+                    <div id="skills-content" style="display:none;" class="section-content">
+                        <h3>NPMskills</h3>
+                        <p>Equip yourself with skills, offering:
+                        <ol>
+                            <li>Learn skills for free</li>
+                            <li>Free certificates</li>
+                            <li>Job offers via algorithms</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('sprituality-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMsprituality</button>
+                    <div id="sprituality-content" style="display:none;" class="section-content">
+                        <h3>NPMsprituality</h3>
+                        <p>Learn about your god, offering:
+                        <ol>
+                            <li>Daily spiritual sentences</li>
+                            <li>Expert talks</li>
+                            <li>Live streams</li>
+                            <li>Share your thoughts</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('stocks-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMstocks</button>
+                    <div id="stocks-content" style="display:none;" class="section-content">
+                        <h3>NPMstocks</h3>
+                        <p>Explore markets, offering:
+                        <ol>
+                            <li>Market analysis</li>
+                            <li>Consolidated news</li>
+                            <li>Buy and sell (soon)</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('business-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMbusiness</button>
+                    <div id="business-content" style="display:none;" class="section-content">
+                        <h3>NPMbusiness</h3>
+                        <p>Explore the market, offering:
+                        <ol>
+                            <li>Buy at low prices</li>
+                            <li>Sell at higher prices</li>
+                            <li>A.I.-assisted pricing</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('tech-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMtech</button>
+                    <div id="tech-content" style="display:none;" class="section-content">
+                        <h3>NPMtech</h3>
+                        <p>Explore tech projects, offering:
+                        <ol>
+                            <li>Tech products</li>
+                            <li>Join projects</li>
+                            <li>Read/write articles</li>
+                            <li>Research papers</li>
+                        </ol>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('games-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMgames</button>
+                    <div id="games-content" style="display:none;" class="section-content">
+                        <h3>NPMgames</h3>
+                        <p>Explore our games.</p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('adventure-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMadventure</button>
+                    <div id="adventure-content" style="display:none;" class="section-content">
+                        <h3 class="tag">NPMadventure</h3>
+                        <p>Explore adventures with NPMadventure.</p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('tour-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPMtour</button>
+                    <div id="tour-content" style="display:none;" class="section-content">
+                        <h3 class="tag">NPMtour</h3>
+                        <p>Plan your tours with NPMtour.</p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('govt-content')" class="NPMbriefbutton" aria-expanded="false">GOVT OF
+                        INDIA</button>
+                    <div id="govt-content" style="display:none;" class="section-content">
+                        <h3 class="tag">GOVT OF INDIA</h3>
+                        <p>Access government-related information and services.</p>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="toggleSection('npm-content')" class="NPMbriefbutton"
+                        aria-expanded="false">NPM</button>
+                    <div id="npm-content" style="display:none;" class="section-content">
+                        <h3 class="tag">NPM</h3>
+                        <p>Explore everything about NPM.</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+        const nhost = new NhostClient({
+            subdomain: "huysqnpmolyufcndbmvy",
+            region: "eu-west-2"
+        });
+
+        async function signup() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const { error } = await nhost.auth.signUp({ email, password });
+            if (error) {
+                alert("Signup failed: " + error.message);
+            } else {
+                alert("Signup successful!");
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const { error } = await nhost.auth.signIn({ email, password });
+            if (error) {
+                alert("Login failed: " + error.message);
+            } else {
+                alert("Login successful!");
+            }
+        }
+        function toggleMenu() {
+            const nav = document.getElementById('topmenue');
+            nav.classList.toggle('active');
+        }
+
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.style.display = section.style.display === 'block' ? 'none' : 'block';//ye dikhata hai ki agar none hai toh block karo aur block toh none karwayega NPMexporer orffer section ke liye
+        }
+
+        function search() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const sectionList = document.getElementsByClassName('section-content');
+            const sections = sectionList.getElementsByClassName('tag');
+            for (let section of sections) {
+                const button = section.getElementsByTagName('button')[0];
+                const sectionName = button.textContent.toLowerCase();
+                const sectionContent = section.querySelector('.section-content');
+                if (sectionName.includes(searchQuery) || (sectionContent && sectionContent.textContent.toLowerCase().includes(searchQuery))) {
+                    section.style.display = 'block';
+                    if (sectionContent) sectionContent.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                    if (sectionContent) sectionContent.style.display = 'none';
+                }
+            }
+            document.getElementById('buttonstoggle').style.display = 'block';
+        }
+
+
+        function searchWikipedia() {
+            const query = document.getElementById("searchBox").value.trim();
+            if (!query) {
+                alert("Please enter a topic!");
+                return;
+            }
+
+            const title = encodeURIComponent(query);
+
+            fetch(`https://en.wikipedia.org/api/rest_v1/page/html/${title}`, {
+                headers: { 'Accept': 'text/html' }
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error("Page not found");
+                    }
+                    return res.text();
+                })
+                .then(html => {
+                    document.getElementById("result").innerHTML = html;
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById("result").innerHTML = `<p style="color:red;">❌ No data found or page not available.</p>`;
+                });
+        }
+    </script>
+
+</body>
+
+</html>

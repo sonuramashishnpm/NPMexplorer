@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPMstocks</title>
+    <link rel="stylesheet" href="NPMstocksstyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="article">Welcome to NPMstocks</header>
+    <div class="container">
+        <div class="stocksmain">
+            <div class="stockschart">
+                <div class="stock-search">
+                    <input type="text" id="stock-search-input" placeholder="Enter stock symbol (e.g., AAPL, RELIANCE)">
+                    <button id="stock-search-btn">Load Stock</button>
+                </div>
+                <div id="tradingview-widget"></div>
+            </div>
+            <div class="stockslive">
+                <h2>Live Market Updates</h2>
+                <div class="live-updates"></div>
+                <h2>Market News</h2>
+                <div class="market-news" id="market-news">
+                    <p>Loading latest market news...</p>
+                </div>
+                <h2>My Watchlist</h2>
+                <div class="watchlist">
+                    <input type="text" id="watchlist-input" placeholder="Add stock symbol (e.g., TSLA)">
+                    <button id="watchlist-add-btn">Add</button>
+                    <ul id="watchlist-items"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+        let currentSymbol = "NASDAQ:AAPL";
+        function loadTradingViewWidget(symbol) {
+            new TradingView.widget({
+                "container_id": "tradingview-widget",
+                "width": "100%",
+                "height": 1000,
+                "symbol": symbol,
+                "interval": "D",
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": "#1a1a1a",
+                "enable_publishing": true,
+                "withdateranges": true,
+                "allow_symbol_change": true,
+                "save_image": true,
+                "studies": [
+                    "MACD@tv-basicstudies",
+                    "RSI@tv-basicstudies",
+                    "StochasticRSI@tv-basicstudies"
+                ],
+                "show_popup_button": true,
+                "popup_width": "1000",
+                "popup_height": "650",
+                "hide_side_toolbar": false,
+                "details": true,
+                "hotlist": true,
+                "calendar": true,
+                "news": true,
+                "hideideas": false
+            });
+        }
+        loadTradingViewWidget(currentSymbol);
+
+        document.getElementById('stock-search-btn').addEventListener('click', () => {
+            const input = document.getElementById('stock-search-input').value.trim().toUpperCase();
+            if (input) {
+                currentSymbol = input.includes(':') ? input : `NASDAQ:${input}`;
+                document.getElementById('tradingview-widget').innerHTML = '';
+                loadTradingViewWidget(currentSymbol);
+            }
+        });
+
+        function loadWatchlist() {
+            const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+            const watchlistItems = document.getElementById('watchlist-items');
+            watchlistItems.innerHTML = watchlist.map(symbol => `
+                <li>
+                    <span class="watchlist-symbol" data-symbol="${symbol}">${symbol}</span>
+                    <button class="watchlist-remove-btn" data-symbol="${symbol}">Remove</button>
+                </li>
+            `).join('');
+            document.querySelectorAll('.watchlist-symbol').forEach(item => {
+                item.addEventListener('click', () => {
+                    currentSymbol = item.dataset.symbol;
+                    document.getElementById('tradingview-widget').innerHTML = '';
+                    loadTradingViewWidget(currentSymbol);
+                });
+            });
+            document.querySelectorAll('.watchlist-remove-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const symbol = btn.dataset.symbol;
+                    const updatedWatchlist = watchlist.filter(s => s !== symbol);
+                    localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
+                    loadWatchlist();
+                });
+            });
+        }
+
+        document.getElementById('watchlist-add-btn').addEventListener('click', () => {
+            const input = document.getElementById('watchlist-input').value.trim().toUpperCase();
+            if (input) {
+                const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+                if (!watchlist.includes(input)) {
+                    watchlist.push(input);
+                    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+                    loadWatchlist();
+                    document.getElementById('watchlist-input').value = '';
+                }
+            }
+        });
+
+        function updateLiveFeed() {
+            const liveUpdates = document.querySelector('.live-updates');
+            const updates = [
+                { text: 'AAPL: +2.45%', color: 'green' },
+                { text: 'NSE Nifty: 23,789.12 (+1.34%)', color: 'green' },
+                { text: 'Forex USD/INR: 83.45 (-0.12%)', color: 'red' },
+                { text: 'BSE Sensex: 77,123.45 (+0.95%)', color: 'green' },
+                { text: 'TSLA: -1.23%', color: 'red' }
+            ];
+            liveUpdates.innerHTML = updates.map(update => `
+                <p style="color: ${update.color}">${update.text}</p>
+            `).join('');
+        }
+        setInterval(updateLiveFeed, 5000);
+        updateLiveFeed();
+        loadWatchlist();
+
+        // Auto-load RSS Market News (working version)
+        async function loadMarketNewsRSS() {
+            const rssFeeds = [
+                { url: 'https://feeds.feedburner.com/ndtvprofit-latest', label: 'NDTV Profit' },
+                { url: 'https://www.moneycontrol.com/rss/latestnews.xml', label: 'Moneycontrol Latest' },
+                { url: 'https://economictimes.indiatimes.com/rssfeeds/1976628101.cms', label: 'Economic Times' },
+                { url: 'https://www.moneycontrol.com/rss/market-news.xml', label: 'MC Market News' },
+                { url: 'https://www.moneycontrol.com/rss/market-updates.xml', label: 'MC Market Updates' }
+            ];
+
+            const container = document.getElementById('market-news');
+            container.innerHTML = '';
+
+            for (const feed of rssFeeds) {
+                try {
+                    const apiKey = 'efdtvpkmkbcybgeqi2g4ggnvdiere2y2p0bcogxa';
+                    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}&api_key=${apiKey}`);
+                    const data = await res.json();
+
+                    const section = document.createElement('div');
+                    section.innerHTML = `<h4 style="color:darkblue;">${feed.label}</h4>`;
+
+                    data.items.slice(0, 2).forEach(item => {
+                        const newsItem = document.createElement('div');
+                        const fullContent = document.createElement('p');
+                        fullContent.innerHTML = `${item.content || item.description}`;
+                        fullContent.style.display = 'none';
+
+                        const readMore = document.createElement('a');
+                        readMore.href = '#';
+                        readMore.textContent = 'Read more';
+                        readMore.style.display = 'inline-block';
+                        readMore.style.marginTop = '5px';
+                        readMore.onclick = function(e) {
+                            e.preventDefault();
+                            fullContent.style.display = fullContent.style.display === 'none' ? 'block' : 'none';
+                            readMore.textContent = fullContent.style.display === 'block' ? 'Hide' : 'Read more';
+                        };
+
+                        newsItem.innerHTML = `
+                            <p class="news-titles">
+                                <span class="news-title">${item.title}</span><br>
+                            </p>`;
+                        newsItem.appendChild(readMore);
+                        newsItem.appendChild(fullContent);
+                        section.appendChild(newsItem);
+                    });
+
+                    container.appendChild(section);
+                } catch (err) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.innerHTML = `<p>⚠️ Failed to load news from ${feed.label}</p>`;
+                    container.appendChild(errorDiv);
+                }
+            }
+        }
+
+        loadMarketNewsRSS();
+        setInterval(loadMarketNewsRSS, 1800000);
+        </script>
+        
+</body>
+</html>
