@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPMfinance</title>
+    <link rel="stylesheet" href="NPMfinancestyle.css">
+    <link rel="icon" href="NPMfinance.jpg" type="image/x-icon">
+</head>
+<body>
+    <header class="header">NPMfinance</header>
+    <h1 class="welcome">NPMfinance welcomes you</h1>
+    <label for="search">Select:</label>
+    <select id="search" onchange="showbt()">
+        <option value="">--Select an option--</option>
+        <option value="Budget tracking">Budget Tracker</option>
+        <option value="EMI calculator">EMI Calculator</option>
+        <option value="SIP calculator">SIP Calculator</option>
+        <option value="FD calculator">FD Calculator</option>
+    </select>
+
+    <!-- Budget Tracker -->
+    <div class="btdiv" style="display: none;">
+        <h3>Budget Tracker</h3>
+        <form id="budgetForm" onsubmit="addTransaction(event)">
+            <input type="text" id="desc" placeholder="Description" required>
+            <input type="number" id="amount" placeholder="Amount (+income, -expense)" required>
+            <button type="submit">Add</button>
+        </form>
+        <ul id="transactions"></ul>
+        <div>
+            <strong>Total Balance:</strong> ₹<span id="balance">0</span>
+        </div>
+    </div>
+
+    <!-- EMI Calculator -->
+    <div class="emidiv" style="display: none;">
+        <h3>EMI Calculator</h3>
+        <form id="emiForm" onsubmit="calculateEMI(event)">
+            <input type="number" id="emiPrincipal" placeholder="Principal Amount" required>
+            <input type="number" id="emiRate" placeholder="Annual Interest Rate (%)" required>
+            <input type="number" id="emiTenure" placeholder="Tenure (months)" required>
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="emiResult"></div>
+    </div>
+
+    <!-- SIP Calculator -->
+    <div class="sipdiv" style="display: none;">
+        <h3>SIP Calculator</h3>
+        <form id="sipForm" onsubmit="calculateSIP(event)">
+            <input type="number" id="sipAmount" placeholder="Monthly Investment" required>
+            <input type="number" id="sipRate" placeholder="Annual Interest Rate (%)" required>
+            <input type="number" id="sipYears" placeholder="Years" required>
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="sipResult"></div>
+    </div>
+
+    <!-- FD Calculator -->
+    <div class="fddiv" style="display: none;">
+        <h3>FD Calculator</h3>
+        <form id="fdForm" onsubmit="calculateFD(event)">
+            <input type="number" id="fdAmount" placeholder="Deposit Amount" required>
+            <input type="number" id="fdRate" placeholder="Annual Interest Rate (%)" required>
+            <input type="number" id="fdYears" placeholder="Years" required>
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="fdResult"></div>
+    </div>
+
+    <script>
+        function showbt() {
+            // Hide all tool divs
+            document.querySelector('.btdiv').style.display = "none";
+            document.querySelector('.emidiv').style.display = "none";
+            document.querySelector('.sipdiv').style.display = "none";
+            document.querySelector('.fddiv').style.display = "none";
+            // Show selected tool
+            const val = document.getElementById("search").value;
+            if (val === "Budget tracking") document.querySelector('.btdiv').style.display = "block";
+            if (val === "EMI calculator") document.querySelector('.emidiv').style.display = "block";
+            if (val === "SIP calculator") document.querySelector('.sipdiv').style.display = "block";
+            if (val === "FD calculator") document.querySelector('.fddiv').style.display = "block";
+        }
+
+        // Budget Tracker Logic
+        let transactions = [];
+        function addTransaction(e) {
+            e.preventDefault();
+            const desc = document.getElementById('desc').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            transactions.push({ desc, amount });
+            renderTransactions();
+            document.getElementById('budgetForm').reset();
+        }
+        function renderTransactions() {
+            const ul = document.getElementById('transactions');
+            ul.innerHTML = '';
+            let balance = 0;
+            transactions.forEach((t, i) => {
+                balance += t.amount;
+                const li = document.createElement('li');
+                li.textContent = `${t.desc}: ₹${t.amount}`;
+                li.style.color = t.amount < 0 ? 'red' : 'green';
+                const delBtn = document.createElement('button');
+                delBtn.textContent = "❌";
+                delBtn.onclick = () => { transactions.splice(i, 1); renderTransactions(); };
+                li.appendChild(delBtn);
+                ul.appendChild(li);
+            });
+            document.getElementById('balance').textContent = balance.toFixed(2);
+        }
+
+        // EMI Calculator Logic
+        function calculateEMI(e) {
+            e.preventDefault();
+            const P = parseFloat(document.getElementById('emiPrincipal').value);
+            const R = parseFloat(document.getElementById('emiRate').value) / 12 / 100;
+            const N = parseInt(document.getElementById('emiTenure').value);
+            const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+            document.getElementById('emiResult').innerHTML = `Monthly EMI: ₹${emi ? emi.toFixed(2) : 0}`;
+        }
+
+        // SIP Calculator Logic
+        function calculateSIP(e) {
+            e.preventDefault();
+            const A = parseFloat(document.getElementById('sipAmount').value);
+            const r = parseFloat(document.getElementById('sipRate').value) / 12 / 100;
+            const n = parseInt(document.getElementById('sipYears').value) * 12;
+            const futureValue = A * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+            document.getElementById('sipResult').innerHTML = `Future Value: ₹${futureValue ? futureValue.toFixed(2) : 0}`;
+        }
+
+        // FD Calculator Logic
+        function calculateFD(e) {
+            e.preventDefault();
+            const P = parseFloat(document.getElementById('fdAmount').value);
+            const r = parseFloat(document.getElementById('fdRate').value) / 100;
+            const n = parseInt(document.getElementById('fdYears').value);
+            const maturity = P * Math.pow(1 + r, n);
+            document.getElementById('fdResult').innerHTML = `Maturity Amount: ₹${maturity ? maturity.toFixed(2) : 0}`;
+        }
+    </script>
+</body>
+</html>
