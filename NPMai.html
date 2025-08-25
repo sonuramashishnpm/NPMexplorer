@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NPM A.I</title>
+  <link rel="stylesheet" href="NPMaistyle.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <header class="header">NPM A.I.
+    
+  </header>
+  <video autoplay muted loop id="background-video">
+  <source src="NPM ai backgrond video.mp4" type="video/mp4">
+</video>
+
+<div id="video-overlay"></div> <!-- This comes just after video -->
+
+  <h2>NPM A.I ask anything</h2>
+  <p>AI:<p id="response"></p></p>
+ <div class="stickdiv">
+  
+  <input type="text,file" id="userInput" placeholder="Type your question here..." />
+  <button onclick="askAI()">Send</button>
+  <button onclick="startListening()">🎤 Speak</button>
+  </div> 
+ 
+  
+  
+  
+ 
+  <script>
+     // Voice input setup
+  function startListening() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-IN"; // Ya "hi-IN" for Hindi
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      document.getElementById("userInput").placeholder = "🎙️ Listening...";
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      document.getElementById("userInput").value = transcript;
+      document.getElementById("userInput").placeholder = "Type your question here...";
+    };
+
+    recognition.onerror = (event) => {
+      alert("🎤 Voice error: " + event.error);
+      document.getElementById("userInput").placeholder = "Type your question here...";
+    };
+
+    recognition.start();
+  }
+
+    
+    const apiConfigs = [
+       { key: "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", model: "google/gemma-3-4b-it:free" },
+      { key:"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", model:"deepseek/deepseek-r1:free"},
+      
+    ];
+
+    async function askAI() {
+    
+      const input = document.getElementById("userInput").value.trim();
+      const responseBox = document.getElementById("response");
+
+      if (!input) {
+        responseBox.textContent = "❗ Please type something!";
+        return;
+      }
+
+      responseBox.textContent = "🧠 Thinking...";
+
+      for (let i = 0; i < apiConfigs.length; i++) {
+        const { key, model } = apiConfigs[i];
+        try {
+          const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Authorization": "Bearer " + key,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              model: model,
+              messages: [{ role: "user", content: input }]
+            })
+          });
+
+          const data = await res.json();
+          console.log(`🔁 API ${i + 1} response:`, data);
+
+          if (data?.choices?.length > 0) {
+            responseBox.textContent = data.choices[0].message.content;
+            return; // ✅ Done
+          } else if (data?.error) {
+            responseBox.textContent = `❌ Error (${i + 1}): ${data.error.message}`;
+          } else {
+            responseBox.textContent = `⚠️ Unexpected response from API ${i + 1}`;
+          }
+
+        } catch (err) {
+          console.warn(`⛔ Failed with API ${i + 1}`, err);
+        }
+      }
+
+      responseBox.textContent = "❌ All API keys failed. Try again later.";
+      
+    }
+  </script>
+</body>
+</html>
