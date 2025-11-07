@@ -1,73 +1,444 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sonu Kumari</title>
-  <link rel="stylesheet" href="Sonustyle.css">
-  <link rel="icon" href="sonu.png" type="image/png">
+    <meta charset="UTF-8">
+    <title>Sonu Kumar – Bihar Viral Boy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- External CSS Libraries (Fonts, Icons) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
+            color: #333;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            animation: fadeInDown 1s ease-out;
+        }
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+            animation: fadeInUp 1s ease-out;
+        }
+        /* Fade-in animations */
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        /* Navigation bar */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #4CAF50;
+        }
+        /* Main sections */
+        section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        section h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #4CAF50;
+            position: relative;
+        }
+        /* Content columns */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 15px;
+            flex: 1 1 300px;
+            max-width: 300px;
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .card img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.4em;
+            color: #333;
+        }
+        .card p {
+            font-size: 0.95em;
+            line-height: 1.4;
+            color: #555;
+        }
+        /* Quote styles */
+        blockquote {
+            font-style: italic;
+            color: #555;
+            border-left: 4px solid #4CAF50;
+            margin: 20px auto;
+            padding: 10px 20px;
+            max-width: 700px;
+            background: #f9f9f9;
+            position: relative;
+        }
+        blockquote::before {
+            content: "“";
+            font-size: 4em;
+            position: absolute;
+            left: 10px;
+            top: -10px;
+            color: #4CAF50;
+        }
+        blockquote::after {
+            content: "”";
+            font-size: 4em;
+            position: absolute;
+            right: 10px;
+            bottom: -20px;
+            color: #4CAF50;
+        }
+        /* Timeline styles */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: #4CAF50;
+            top: 0; bottom: 0; left: 50%;
+            transform: translateX(-50%);
+        }
+        .timeline-entry {
+            padding: 20px;
+            position: relative;
+            width: 50%;
+        }
+        .timeline-entry:nth-child(odd) {
+            left: 0;
+        }
+        .timeline-entry:nth-child(even) {
+            left: 50%;
+        }
+        .timeline-entry::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 15px; height: 15px;
+            background: #4CAF50;
+            border-radius: 50%;
+            border: 4px solid white;
+            z-index: 1;
+        }
+        .timeline-entry:nth-child(odd)::after {
+            right: -8px;
+        }
+        .timeline-entry:nth-child(even)::after {
+            left: -8px;
+        }
+        .entry-content {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .timeline-entry:nth-child(odd) .entry-content {
+            margin-right: 60px;
+        }
+        .timeline-entry:nth-child(even) .entry-content {
+            margin-left: 60px;
+        }
+        .entry-content h4 {
+            margin: 0 0 5px;
+            color: #4CAF50;
+        }
+        /* Social buttons */
+        .social-links {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .social-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 2em;
+            transition: transform 0.3s;
+        }
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .timeline::after { left: 90px; }
+            .timeline-entry {
+                width: 100%;
+                padding-left: 120px;
+                padding-right: 30px;
+            }
+            .timeline-entry:nth-child(even) {
+                left: 0%;
+            }
+            .timeline-entry:nth-child(odd) .entry-content {
+                margin: 0 0 0 30px;
+            }
+            .timeline-entry:nth-child(even) .entry-content {
+                margin: 0 0 0 30px;
+            }
+            .timeline-entry::after {
+                top: 20px; left: 82px;
+            }
+        }
+        /* Dark mode toggle (optional) */
+        .dark-mode {
+            background: #121212;
+            color: #ddd;
+        }
+        .dark-mode header {
+            background: #333;
+        }
+        .dark-mode nav {
+            background: rgba(30,30,30,0.9);
+        }
+        .dark-mode .card {
+            background: #1e1e1e;
+            color: #ccc;
+        }
+        .dark-mode blockquote {
+            background: #1e1e1e;
+            border-color: #8bc34a;
+        }
+        .dark-mode blockquote::before,
+        .dark-mode blockquote::after {
+            color: #8bc34a;
+        }
+        .dark-mode .timeline::after {
+            background: #8bc34a;
+        }
+        .dark-mode .timeline-entry::after {
+            background: #8bc34a;
+        }
+    </style>
 </head>
-
 <body>
-  <div id="header-container">
-    <!--<img src="sonu.png" id="header-image" alt="Sonu Kumar">-->
-  <div id="header-container1">  
-    <div id="header-container2">
-      <header id="header">
-        <p id="psonu">Sonu Kumar<sub id="sub">Viral Boy</sub></p>
-      </header>
-    </div>
-    <div id="header-container3"> <!-- Add this where you want the icon (e.g. inside #iinddiv) -->
-      <a href="https://www.facebook.com/people/Sonu-Kumar/100086909945617/" target="_blank" rel="noopener noreferrer"
-        aria-label="Sonu Kumar on Facebook" class="social-btnfb">
-        <img src="Facebook_Logo_2023.png" alt="Facebook" id="facebook-icon">
-      </a> <a href="https://npmexplorer.netlify.app" target="_blank" rel="noopener noreferrer" aria-label='NPMexplorer'
-        class="social-btnnpm">
-        <img src="NPM.jpg" alt="NPM Explorer" id="npm-icon">
-      </a>
-    </div>
-    </div>
-  </div>
-  <div id="div">
-    <div>
-      <img src="sonu.png" id="profile-image" alt="Sonu Kumar">
-      <h1 id="h1">HTML,CSS,<br>JavaScript,<br>Python,Developer(Web)</h1>
-    </div>
-    <div id="iinddiv">
-      <p>Hi! I’m <strong>Sonu Kumar</strong>, also known as <em>Viral Boy</em> — a passionate and curious developer who
-        loves turning ideas into interactive digital experiences.</p>
-      <p>Currently, I’m studying at <strong>Allen Career Institute</strong> and <strong>DISHA Delphi Public
-          School</strong> in Kota, Rajasthan, building a strong academic and technical foundation.</p>
-      <p>I am skilled in <strong>HTML</strong>, <strong>CSS</strong>, <strong>JavaScript</strong>, and
-        <strong>Python</strong>, with experience creating clean, responsive designs and functional logic for the web.
-      </p>
-      <p>One of my proudest projects is <a href="https://npmexplorer.netlify.app" target="_blank"
-          style="color: lightblue;">NPM Explorer</a> — a tool to easily search and explore npm packages, combining
-        elegant design with powerful features.</p>
-      <p>I’m always learning, experimenting, and pushing myself to create better, smarter projects that make an impact.
-      </p>
-    </div>
-    <div>
-      <img src="Sonu2.png" id="profile-image2" alt="Sonu Kumar">
-      <h1>Tedx Speaker</h1>
-    </div>
-  </div>
-        <h1 style="text-align: center; border: 5px solid cyan; border-radius: 50%;">Sonu's Achievments</h1>
-  <div id="sonuw">
-    <h1 id="fbbtn">Facebook Profile</h1>
-  <div id="fbiframe" >
-    <h2 style="text-align: center;">Facebook Profile</h2>
-    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpeople%2FSonu-Kumar%2F100086909945617%2F&show_text=true&width=500"
-      width="800" height="600" style="border:none;overflow:hidden"  frameborder="0"
-      allowtransparency="true" allowfullscreen="true"></iframe>
-  </div>
-  <div id="NPMiframe" >
-    <h2 style="text-align: center;">NPMexplorer<p>(Developed By Sonu)</p></h2>
-    <iframe src="https://npmexplorer.netlify.app" width="800px" height="600"  frameborder="0" allowtransparency="true" allowfullscreen="true"></iframe>
-</div>
-</div>
+    <header>
+        <h1>🌟 Sonu Kumar — Achievements at 14</h1>
+        <p>A young changemaker from Bihar (Tech Enthusiast & Social Activist)</p>
+    </header>
+    <!-- Navigation -->
+    <nav>
+        <a href="#about">About</a>
+        <a href="#impact">Social Impact</a>
+        <a href="#projects">Projects</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Sonu</h2>
+        <div class="container">
+            <div class="card">
+                <img src="https://cdn.pixabay.com/photo/2017/03/28/12/07/bricks-2181920_1280.jpg" alt="Classroom setup">
+                <h3>TEDx Speaker</h3>
+                <p>At age 13, Sonu delivered an inspiring TEDx talk (“In Pursuit of Knowledge, Defying All Odds”) about education and social change. </p>
+            </div>
+            <div class="card">
+                <img src="https://cdn.pixabay.com/photo/2021/12/29/00/30/school-6900381_1920.jpg" alt="School study materials">
+                <h3>Scholarship Student</h3>
+                <p>He studies in Kota at Allen (and DDPS) on 100% scholarship, aiming for civil service. He famously sought support from the Bihar CM for better schooling:contentReference[oaicite:21]{index=21}:contentReference[oaicite:22]{index=22}.</p>
+            </div>
+            <div class="card">
+                <img src="https://cdn.pixabay.com/photo/2014/02/01/17/28/apple-256263_1280.jpg" alt="Apple on books">
+                <h3>Academic Achiever</h3>
+                <p>Sonu excelled academically, winning full coaching support from Allen Kota after his viral appeal. He dreams of becoming an IAS/IPS officer:contentReference[oaicite:23]{index=23}:contentReference[oaicite:24]{index=24}.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Impact Section -->
+    <section id="impact">
+        <h2>Social Impact</h2>
+        <p style="max-width:800px; margin:0 auto; font-size:1.1em; color:#555;">
+            Sonu raised critical issues before Bihar’s leadership. He told CM Nitish Kumar that his own government school was failing to educate him:contentReference[oaicite:25]{index=25}. His actions exposed broader problems: observers noted this was like telling the “king he has no clothes”:contentReference[oaicite:26]{index=26}. His story sparked national conversations about education reform and alcohol policy. Many leaders (including JD(U) members and celebrities) publicly supported him and offered help:contentReference[oaicite:27]{index=27}:contentReference[oaicite:28]{index=28}. For example, Sushil Modi promised Navodaya admission and monthly aid, and actor Sonu Sood offered sponsorship (though Sonu chose Allen Institute):contentReference[oaicite:29]{index=29}:contentReference[oaicite:30]{index=30}.
+        </p>
+        <blockquote>
+            “Who wouldn’t like to educate a kid with such zeal and interest in studies?... Sonu will do hard work and study with passion to become a civil servant.” – Brajesh Maheshwari (Allen Institute):contentReference[oaicite:31]{index=31}
+        </blockquote>
+        <p style="max-width:800px; margin:20px auto 0; font-size:1.1em; color:#555;">
+            Impressively, even before Kota, Sonu was helping others. He tutored nearby village children (charging a small fee) to pay his school fees:contentReference[oaicite:32]{index=32}:contentReference[oaicite:33]{index=33}. Reports say he was earning a few thousand rupees monthly by teaching classmates in grades 1–5. This grassroots leadership earned him admiration: villagers and internet users alike rallied behind Sonu’s cause.
+        </p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Tech & Projects</h2>
+        <p style="max-width:800px; margin:0 auto 20px; font-size:1.1em; color:#555;">
+            Sonu is also a self-described tech enthusiast. He lists skills in Python (with libraries like Selenium, NumPy, Pandas, etc.), web development (HTML/CSS/JavaScript), and even blockchain (Solidity). According to his profile, he built several projects:
+        </p>
+        <ul style="max-width:700px; margin: 0 auto 30px; line-height:1.5; font-size:1em; color:#333;">
+            <li><strong>Web Apps:</strong> “npmexplorer” (HTML/CSS/JS site) and a Flask-based explorer site for NPM data:contentReference[oaicite:34]{index=34}.</li>
+            <li><strong>AI Automation:</strong> Tools that use Selenium to automate AI services (e.g. Gemini, ChatGPT) without API keys, and video creation scripts.</li>
+            <li><strong>Business & Legal AI:</strong> Creations like “NPM Business Analysis AI” and “NPM LEGAL AI” are mentioned as upcoming.</li>
+            <li><strong>Innovations:</strong> He claims to have stress-tested websites (like Allen’s site), challenged game fairness on simcompanies.com, and automated various AI workflows using LangChain.</li>
+        </ul>
+        <div class="container">
+            <div class="card">
+                <img src="https://cdn.pixabay.com/photo/2017/12/29/15/30/coding-3049127_1280.jpg" alt="Coding on screen">
+                <h3>Python & AI</h3>
+                <p>Developed scripts with Python: data analysis, AI automation (no-API Selenium bots), and LangChain integrations.</p>
+            </div>
+            <div class="card">
+                <img src="https://cdn.pixabay.com/photo/2018/03/27/21/23/code-3267225_1280.jpg" alt="Coding software">
+                <h3>Web Development</h3>
+                <p>Built websites using HTML/CSS/JS and Flask. Created npmexplorer-flask.onrender.com and other interactive apps for learning coding.</p>
+            </div>
+            <div class="card">
+                <img src="https://cdn.pixabay.com/photo/2016/03/27/17/06/technology-1283621_1280.jpg" alt="Technology icons">
+                <h3>Automation Tools</h3>
+                <p>Automated AI tools (like ChatGPT) using Selenium. Claims to automate YouTube video creation, and to “stress-test” web apps legally.</p>
+            </div>
+        </div>
+        <p style="font-size:0.9em; color:#777; text-align:center; margin-top:10px;">
+            (For full details on projects, see Sonu’s GitHub and profile links below.)
+        </p>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline">
+        <h2>Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-entry">
+                <div class="entry-content">
+                    <h4>May 2022</h4>
+                    <p>At age 11, Sonu speaks to CM Nitish Kumar about education. Video goes viral nationally:contentReference[oaicite:35]{index=35}:contentReference[oaicite:36]{index=36}.</p>
+                </div>
+            </div>
+            <div class="timeline-entry">
+                <div class="entry-content">
+                    <h4>June 2022</h4>
+                    <p>Sonu chooses Allen Kota on scholarship. He moves to Kota and enrolls in Class 6:contentReference[oaicite:37]{index=37}:contentReference[oaicite:38]{index=38}.</p>
+                </div>
+            </div>
+            <div class="timeline-entry">
+                <div class="entry-content">
+                    <h4>2022–2023</h4>
+                    <p>Studies in Kota, continues to tutor others (earns tuition fee) and delivers a TEDx talk (TedxDDPS Youth) on educational vision (as self-reported).</p>
+                </div>
+            </div>
+            <div class="timeline-entry">
+                <div class="entry-content">
+                    <h4>2024</h4>
+                    <p>Expands online presence: builds coding projects, automations, and shares content to a growing follower base (≈400K on Facebook).</p>
+                </div>
+            </div>
+            <!-- Additional entries can be added similarly -->
+        </div>
+    </section>
+
+    <!-- Contact / Social Links Section -->
+    <section id="contact">
+        <h2>Connect with Sonu</h2>
+        <p style="text-align:center; font-size:1.1em; color:#555;">
+            Follow his journey and projects on social media and GitHub:
+        </p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/sonuramashishnpm" target="_blank" title="Facebook">
+                <img src="https://cdn.pixabay.com/photo/2012/04/13/20/05/facebook-329539_1280.png" alt="Facebook" width="40">
+            </a>
+            <a href="https://github.com/sonuramashishnpm" target="_blank" title="GitHub">
+                <img src="https://cdn.pixabay.com/photo/2013/07/12/14/44/github-147637_1280.png" alt="GitHub" width="40">
+            </a>
+            <!-- Placeholder icons above; in a real site, use vector icons (e.g. Font Awesome) -->
+        </div>
+        <p style="text-align:center; font-size:0.9em; color:#777; margin-top:20px;">
+            Built with ❤️ by Sonu’s supporters. Content is based on news reports:contentReference[oaicite:39]{index=39}:contentReference[oaicite:40]{index=40} and Sonu’s own accounts.
+        </p>
+    </section>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+    // Scroll-based fade-in for sections
+    document.addEventListener('DOMContentLoaded', function() {
+        const faders = document.querySelectorAll('section, .timeline-entry, .card, blockquote');
+        const appearOptions = { threshold: 0.1 };
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = 'translateY(0px)';
+                appearOnScroll.unobserve(entry.target);
+            });
+        }, appearOptions);
+        faders.forEach(fader => {
+            fader.style.opacity = 0;
+            fader.style.transform = 'translateY(20px)';
+            appearOnScroll.observe(fader);
+        });
+    });
+
+    // Count-up animation for a numeric stat (e.g., followers)
+    function animateCount(id, target) {
+        let count = 0;
+        const increment = target / 100;
+        const obj = document.getElementById(id);
+        function update() {
+            count += increment;
+            if (count < target) {
+                obj.innerText = Math.floor(count);
+                requestAnimationFrame(update);
+            } else {
+                obj.innerText = target;
+            }
+        }
+        update();
+    }
+    // Example usage (requires an element with id="followerCount" in HTML)
+    // animateCount('followerCount', 398000);
+
+    // Dark mode toggle example (could be hooked to a button)
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+    </script>
 </body>
-
-
 </html>
